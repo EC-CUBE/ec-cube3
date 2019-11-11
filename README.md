@@ -1,6 +1,6 @@
 # EC-CUBE 3.0.x
 
-[![Build Status](https://travis-ci.org/EC-CUBE/ec-cube3.svg?branch=3.0)](https://travis-ci.org/EC-CUBE/ec-cube3)
+[![Build Status](https://travis-ci.com/EC-CUBE/ec-cube3.svg?branch=3.0)](https://travis-ci.com/EC-CUBE/ec-cube3)
 [![AppVeyor](https://img.shields.io/appveyor/ci/ECCUBE/ec-cube3)](https://ci.appveyor.com/project/ECCUBE/ec-cube3)
 [![Scrutinizer code quality](https://img.shields.io/scrutinizer/quality/g/ec-cube/ec-cube3)](https://scrutinizer-ci.com/g/EC-CUBE/ec-cube3/)
 [![Coverage Status](https://coveralls.io/repos/github/EC-CUBE/ec-cube/badge.svg?branch=3.0)](https://coveralls.io/github/EC-CUBE/ec-cube?branch=3.0)
