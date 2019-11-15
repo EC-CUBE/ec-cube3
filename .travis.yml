@@ -18,6 +18,7 @@ php:
   - 7.1
   - 7.2
   - 7.3
+  - 7.4snapshot
 
 dist: precise
 
@@ -41,9 +42,16 @@ matrix:
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
     - php: 7.1
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
+    - php: 7.2
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
+    - php: 7.3
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
+    - php: 7.4snapshot
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
   allow_failures:
     - php: 7.2
     - php: 7.3
+    - php: 7.4snapshot
     - env: DB=sqlite
     - php: 7.1
     - php: 7.0.12 # dist: trusty を動かすためのダミー. 実際にテストは実行されない
