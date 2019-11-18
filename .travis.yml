@@ -29,6 +29,15 @@ matrix:
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
       sudo: required
       dist: trusty
+    - php: 7.4snapshot
+      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
+      dist: trusty
+    - php: 7.4snapshot
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
+      dist: trusty
+    - php: 7.4snapshot
+      env: DB=sqlite
+      dist: trusty
   exclude:
     - php: 5.3
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
