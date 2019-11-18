@@ -4,6 +4,10 @@ git:
   submodules: false
 
 language: php
+services:
+  - docker
+  - mysql
+  - postgresql
 
 cache:
   directories:
@@ -20,23 +24,41 @@ php:
   - 7.3
   - 7.4snapshot
 
-dist: precise
+dist: xenial
 
 matrix:
   fast_finish: true
   include:
+    - php: 5.3
+      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
+      dist: precise
+    - php: 5.3
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
+      dist: precise
+    - php: 5.3
+      env: DB=sqlite
+      dist: precise
+    - php: 5.4
+      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
+      dist: precise
+    - php: 5.4
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
+      dist: precise
+    - php: 5.4
+      env: DB=sqlite
+      dist: precise
+    - php: 5.5
+      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
+      dist: precise
+    - php: 5.5
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
+      dist: precise
+    - php: 5.5
+      env: DB=sqlite
+      dist: precise
     - php: 7.0.12 # for coverrage
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
       sudo: required
-      dist: trusty
-    - php: 7.4snapshot
-      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
-      dist: trusty
-    - php: 7.4snapshot
-      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
-      dist: trusty
-    - php: 7.4snapshot
-      env: DB=sqlite
       dist: trusty
   exclude:
     - php: 5.3
