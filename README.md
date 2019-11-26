@@ -20,14 +20,14 @@ EC-CUBE 3.0系をベースにして、後方互換性の無い内容も含めた
 ---
 
 + 本ドキュメントはEC-CUBEの開発者を主要な対象者としております。  
-+ パッケージ版をご利用の方は[EC-CUBEオフィシャルサイト](http://www.ec-cube.net)をご確認ください。  
-+ カスタマイズやEC-CUBEの利用、仕様に関しては[開発コミュニティ](http://xoops.ec-cube.net)をご利用ください。  
-+ 本体開発にあたって不明点などあれば[Issue](https://github.com/EC-CUBE/ec-cube/wiki/Issues%E3%81%AE%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)をご利用下さい。
++ パッケージ版をご利用の方は[EC-CUBEオフィシャルサイト](https://www.ec-cube.net)をご確認ください。  
++ カスタマイズやEC-CUBEの利用、仕様に関しては[開発コミュニティ](https://xoops.ec-cube.net)をご利用ください。  
++ 本体開発にあたって不明点などあれば[Issue](https://github.com/EC-CUBE/ec-cube3/issues)をご利用下さい。
 + EC-CUBE2.13系の保守については、[EC-CUBE/eccube-2_13](https://github.com/EC-CUBE/eccube-2_13/)にて開発を行っております。
 
 ## インストール
 
-### [EC-CUBE 3.xのインストール方法](http://ec-cube.github.io/quickstart_install)
+### [EC-CUBE 3.xのインストール方法](https://ec-cube.github.io/quickstart_install)
 
 
 ### 動作確認環境
@@ -39,7 +39,7 @@ EC-CUBE 3.0系をベースにして、後方互換性の無い内容も含めた
 
 ## ドキュメント
 
-### [EC-CUBE 3.x 開発ドキュメント@ec-cube.github.io](http://ec-cube.github.io/)
+### [EC-CUBE 3.x 開発ドキュメント@ec-cube.github.io](https://ec-cube.github.io/)
 
 
 EC-CUBE 3.x の仕様や手順、開発Tipsに関するドキュメントを掲載しています。  
@@ -52,7 +52,7 @@ EC-CUBE 3.xの不具合の修正、機能のブラッシュアップを目的と
 コードのリファクタリング、不具合修正以外のPullRequestを送る際は、Pull Requestのコメントなどに意図を明確に記載してください。  
 
 Pull Requestの送信前に、Issueにて提議いただく事も可能です。  
-Issuesの利用方法については、[こちら](https://github.com/EC-CUBE/ec-cube/wiki/Issues%E3%81%AE%E5%88%A9%E7%94%A8%E6%96%B9%E6%B3%95)をご確認ください。  
+Issuesの利用方法については、[こちら](https://github.com/EC-CUBE/ec-cube3/issues)をご確認ください。  
 
 [![Slack](https://slackin-eccube.herokuapp.com/badge.svg)](https://www.ec-cube.net/rd.php?aid=join-slack)  
 [Slack](https://www.ec-cube.net/rd.php?aid=join-slack)でも本体の開発に関する意見交換などを行っております。  
