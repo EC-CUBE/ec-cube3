@@ -27,6 +27,7 @@ use Binfo\Silex\MobileDetectServiceProvider;
 use Eccube\Application\ApplicationTrait;
 use Eccube\Common\Constant;
 use Eccube\Doctrine\ORM\Mapping\Driver\YamlDriver;
+use Eccube\EventListener\SameSiteCookieHotfixListener;
 use Eccube\EventListener\TransactionListener;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Finder\Finder;
@@ -198,6 +199,8 @@ class Application extends ApplicationTrait
 
         // add transaction listener
         $this['dispatcher']->addSubscriber(new TransactionListener($this));
+
+        $this['dispatcher']->addSubscriber(new SameSiteCookieHotfixListener());
 
         // init http cache
         $this->initCacheRequest();
