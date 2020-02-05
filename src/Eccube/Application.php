@@ -240,8 +240,8 @@ class Application extends ApplicationTrait
             'session.storage.save_path' => $this['config']['root_dir'].'/app/cache/eccube/session',
             'session.storage.options' => array(
                 'name' => $this['config']['cookie_name'],
-                'cookie_path' => $this['config']['root_urlpath'] ?: '/',
-                'cookie_secure' => $this['config']['force_ssl'],
+                'cookie_path' => ($this['config']['root_urlpath'] ?: '/').'; SameSite=None',
+                'cookie_secure' => true,
                 'cookie_lifetime' => $this['config']['cookie_lifetime'],
                 'cookie_httponly' => true,
                 // cookie_domainは指定しない
