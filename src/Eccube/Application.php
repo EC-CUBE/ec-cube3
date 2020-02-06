@@ -200,7 +200,7 @@ class Application extends ApplicationTrait
         // add transaction listener
         $this['dispatcher']->addSubscriber(new TransactionListener($this));
 
-        $this['dispatcher']->addSubscriber(new SameSiteCookieHotfixListener());
+        $this['dispatcher']->addSubscriber(new SameSiteCookieHotfixListener($this));
 
         // init http cache
         $this->initCacheRequest();
