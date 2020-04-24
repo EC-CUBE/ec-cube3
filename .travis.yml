@@ -67,7 +67,8 @@ before_script:
 script: # PHP7 + precise のテストは実行されない
   - if [[ $PHP_SAPI = 'phpdbg' ]] && [[ $CODENAME = 'trusty' ]]; then phpdbg -qrr ./vendor/bin/phpunit --coverage-clover=coverage.clover ; fi
   - if [[ $PHP_SAPI != 'phpdbg' ]]; then ./vendor/bin/phpunit ; fi
-
+  - 'sed -i -e "s|force_ssl:\(.*\)|force_ssl: 1|" app/config/eccube/config.yml' # force_ssl を有効にしてテスト
+  - if [[ $PHP_SAPI != 'phpdbg' ]]; then ./vendor/bin/phpunit tests/Eccube/Tests/Web/SameSiteCookieTest.php ; fi
 after_script:
   - if [[ $PHP_SAPI = 'phpdbg' ]]; then wget https://scrutinizer-ci.com/ocular.phar ; fi
   - if [[ $PHP_SAPI = 'phpdbg' ]]; then php ocular.phar code-coverage:upload --format=php-clover coverage.clover ; fi
