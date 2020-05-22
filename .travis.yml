@@ -4,6 +4,10 @@ git:
   submodules: false
 
 language: php
+services:
+  - docker
+  - mysql
+  - postgresql
 
 cache:
   directories:
@@ -16,30 +20,66 @@ php:
   - 5.6
   - 7.0
   - 7.1
+  - 7.2
+  - 7.3
+  - 7.4snapshot
 
-dist: precise
+dist: xenial
 
 matrix:
   fast_finish: true
   include:
+    - php: 5.3
+      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
+      dist: precise
+    - php: 5.3
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
+      dist: precise
+    - php: 5.3
+      env: DB=sqlite
+      dist: precise
+    - php: 5.4
+      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
+      dist: precise
+    - php: 5.4
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
+      dist: precise
+    - php: 5.4
+      env: DB=sqlite
+      dist: precise
+    - php: 5.5
+      env: DB=mysql USER=root DBNAME=myapp_test DBPASS=' ' DBUSER=root
+      dist: precise
+    - php: 5.5
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres
+      dist: precise
+    - php: 5.5
+      env: DB=sqlite
+      dist: precise
     - php: 7.0.12 # for coverrage
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
       sudo: required
       dist: trusty
   exclude:
     - php: 5.3
-      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
     - php: 5.4
-      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
     - php: 5.5
-      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
     - php: 5.6
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
     - php: 7.0
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
     - php: 7.1
       env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
+    - php: 7.2
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
+    - php: 7.3
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
+    - php: 7.4snapshot
+      env: DB=pgsql USER=postgres DBNAME=myapp_test DBPASS=password DBUSER=postgres PHP_SAPI=phpdbg
   allow_failures:
+    - php: 7.2
+    - php: 7.3
+    - php: 7.4snapshot
     - env: DB=sqlite
     - php: 7.1
     - php: 7.0.12 # dist: trusty を動かすためのダミー. 実際にテストは実行されない
@@ -57,7 +97,7 @@ install:
 
 before_script:
   - CODENAME=$(lsb_release -c -s)
-  - if [[ $PHP_SAPI != 'phpdbg' ]] || [[ $CODENAME = 'trusty' ]]; then phpenv config-rm xdebug.ini ; fi
+  - if [[ $TRAVIS_PHP_VERSION != '7.4snapshot' ]]; then phpenv config-rm xdebug.ini ; fi
   - if [[ $PHP_SAPI = 'phpdbg' ]]; then echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini ; fi
   - composer self-update || true
   - composer install --dev --no-interaction -o
