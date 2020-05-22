@@ -28,6 +28,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Eccube\Application;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormError;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -155,6 +159,30 @@ class ProductType extends AbstractType
                 'allow_delete' => true,
             ))
         ;
+
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+            /** @var FormInterface $form */
+            $form = $event->getForm();
+            $this->validateFilePath($form->get('delete_images'), $this->app['config']['image_save_realdir']);
+            $this->validateFilePath($form->get('add_images'), $this->app['config']['image_temp_realdir']);
+        });
+    }
+
+    /**
+     * 指定したディレクトリ以下のパスかどうかを確認。
+     *
+     * @param $form FormInterface
+     * @param $dir string
+     */
+    private function validateFilePath($form, $dir)
+    {
+        $topDirPath = realpath($dir);
+        foreach ($form->getData() as $fileName) {
+            $filePath = realpath($dir.'/'.$fileName);
+            if (stripos($filePath, $topDirPath) !== 0 || $filePath === $topDirPath) {
+                $form->getRoot()['product_image']->addError(new FormError('画像のパスが不正です。'));
+            }
+        }
     }
 
     /**
