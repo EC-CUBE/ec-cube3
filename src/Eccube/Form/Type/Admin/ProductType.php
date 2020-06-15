@@ -160,13 +160,14 @@ class ProductType extends AbstractType
             ))
         ;
 
-        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
+        $that = $this;
+        $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) use ($that) {
             /** @var FormInterface $form */
             $form = $event->getForm();
-            $saveImgDir = $this->app['config']['image_save_realdir'];
-            $tempImgDir = $this->app['config']['image_temp_realdir'];
-            $this->validateFilePath($form->get('delete_images'), [$saveImgDir, $tempImgDir]);
-            $this->validateFilePath($form->get('add_images'), [$tempImgDir]);
+            $saveImgDir = $that->app['config']['image_save_realdir'];
+            $tempImgDir = $that->app['config']['image_temp_realdir'];
+            $that->validateFilePath($form->get('delete_images'), array($saveImgDir, $tempImgDir));
+            $that->validateFilePath($form->get('add_images'), array($tempImgDir));
         });
     }
 
@@ -185,7 +186,8 @@ class ProductType extends AbstractType
                 return strpos($filePath, $topDirPath) === 0 && $filePath !== $topDirPath;
             });
             if (!$fileInDir) {
-                $form->getRoot()['product_image']->addError(new FormError('画像のパスが不正です。'));
+                $formRoot = $form->getRoot();
+                $formRoot['product_image']->addError(new FormError('画像のパスが不正です。'));
             }
         }
     }
