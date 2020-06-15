@@ -163,23 +163,28 @@ class ProductType extends AbstractType
         $builder->addEventListener(FormEvents::POST_SUBMIT, function (FormEvent $event) {
             /** @var FormInterface $form */
             $form = $event->getForm();
-            $this->validateFilePath($form->get('delete_images'), $this->app['config']['image_save_realdir']);
-            $this->validateFilePath($form->get('add_images'), $this->app['config']['image_temp_realdir']);
+            $saveImgDir = $this->app['config']['image_save_realdir'];
+            $tempImgDir = $this->app['config']['image_temp_realdir'];
+            $this->validateFilePath($form->get('delete_images'), [$saveImgDir, $tempImgDir]);
+            $this->validateFilePath($form->get('add_images'), [$tempImgDir]);
         });
     }
 
     /**
-     * 指定したディレクトリ以下のパスかどうかを確認。
+     * 指定された複数ディレクトリのうち、いずれかのディレクトリ以下にファイルが存在するかを確認。
      *
      * @param $form FormInterface
-     * @param $dir string
+     * @param $dirs array
      */
-    private function validateFilePath($form, $dir)
+    private function validateFilePath($form, $dirs)
     {
-        $topDirPath = realpath($dir);
         foreach ($form->getData() as $fileName) {
-            $filePath = realpath($dir.'/'.$fileName);
-            if (stripos($filePath, $topDirPath) !== 0 || $filePath === $topDirPath) {
+            $fileInDir = array_filter($dirs, function ($dir) use ($fileName) {
+                $filePath = realpath($dir.'/'.$fileName);
+                $topDirPath = realpath($dir);
+                return strpos($filePath, $topDirPath) === 0 && $filePath !== $topDirPath;
+            });
+            if (!$fileInDir) {
                 $form->getRoot()['product_image']->addError(new FormError('画像のパスが不正です。'));
             }
         }
