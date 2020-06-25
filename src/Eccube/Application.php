@@ -236,11 +236,32 @@ class Application extends ApplicationTrait
 
     public function initSession()
     {
+        $root_urlpath = $this['config']['root_urlpath'] ?: '/';
+        $ua = array_key_exists('HTTP_USER_AGENT', $_SERVER) ? $_SERVER['HTTP_USER_AGENT'] : '';
+        $targetUaPatterns = array(
+            '/^.*iPhone; CPU iPhone OS 1[0-2].*$/',
+            '/^.*iPad; CPU OS 1[0-2].*$/',
+            '/^.*iPod touch; CPU iPhone OS 1[0-2].*$/',
+            '/^.*Macintosh; Intel Mac OS X.*Version\/1[0-2].*Safari.*$/',
+        );
+        $isUnsupported = array_filter($targetUaPatterns, function ($pattern) use ($ua) {
+            return preg_match($pattern, $ua);
+        });
+        if ($this['config']['force_ssl'] == \Eccube\Common\Constant::ENABLED && !$isUnsupported) {
+            if (PHP_VERSION_ID >= 70300) {
+                ini_set('session.cookie_path', $root_urlpath);
+                ini_set('session.cookie_samesite', 'none');
+            } else {
+                ini_set('session.cookie_path', $root_urlpath.'; SameSite=none');
+            }
+        } else {
+            ini_set('session.cookie_path', $root_urlpath);
+        }
+
         $this->register(new \Silex\Provider\SessionServiceProvider(), array(
             'session.storage.save_path' => $this['config']['root_dir'].'/app/cache/eccube/session',
             'session.storage.options' => array(
                 'name' => $this['config']['cookie_name'],
-                'cookie_path' => $this['config']['root_urlpath'] ?: '/',
                 'cookie_secure' => $this['config']['force_ssl'],
                 'cookie_lifetime' => $this['config']['cookie_lifetime'],
                 'cookie_httponly' => true,
