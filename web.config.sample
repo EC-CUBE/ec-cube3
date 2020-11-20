@@ -54,6 +54,14 @@
       <error statusCode="404" prefixLanguageFilePath="" path="/index.php" responseMode="ExecuteURL" />
     </httpErrors>
 
+    <httpProtocol>
+      <customHeaders>
+        <add name="X-Frame-Options" value="SAMEORIGIN" />
+        <add name="X-XSS-Protection" value="1; mode=block" />
+        <add name="X-Content-Type-Options" value="nosniff"/>
+      </customHeaders>
+    </httpProtocol>
+
     <defaultDocument>
       <!-- Set the default document -->
       <files>
