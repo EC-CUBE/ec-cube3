@@ -269,7 +269,7 @@ class TemplateController extends AbstractController
                         $phar->extractTo($tmpDir, null, true);
                     }
                 } catch (\Exception $e) {
-                    $form['file']->addError(new FormError('アップロードに失敗しました。圧縮ファイルを確認してください。'));
+                    $form['file']->addError(new FormError('アップロードに失敗しました。圧縮ファイルを確認してください。('.$e->getMessage().')'));
 
                     return $app->render('Store/template_add.twig', array(
                         'form' => $form->createView(),
