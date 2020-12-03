@@ -290,6 +290,23 @@ class CartServiceTest extends AbstractServiceTestCase
         $this->verify();
     }
 
+    public function testSetProductQuantityWithOverPriceAdjustQuantity()
+    {
+        $cartService = $this->app['eccube.service.cart'];
+        $ProductClasses = $this->Product->getProductClasses();
+        $ProductClass = $ProductClasses[0];
+        $ProductClass->setPrice02(floor($this->app['config']['max_total_fee'] / 10));
+        $this->app['orm.em']->flush();
+
+        $cartService->setProductQuantity($ProductClass, 100)->save();
+        $this->actual = $cartService->getError();
+        $this->expected = 'cart.over.price_limit';
+
+        $this->verify();
+
+        $this->assertEquals(9, $cartService->getProductQuantity($ProductClass->getId()), "税込みだと9個までしか購入できないはず");
+    }
+
     public function testSetProductQuantityWithOverStock()
     {
         $ProductClasses = $this->Product->getProductClasses();

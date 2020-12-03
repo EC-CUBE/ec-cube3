@@ -286,14 +286,16 @@ class CartService
                 $tmp_subtotal += $cartitem->getTotalPrice();
             }
         }
-        for ($i = 0; $i < $quantity; $i++) {
-            $tmp_subtotal += $ProductClass->getPrice02IncTax();
-            if ($tmp_subtotal > $this->app['config']['max_total_fee']) {
-                $this->setError('cart.over.price_limit');
-                break;
-            }
-            $tmp_quantity++;
+
+        // 購入金額上限を超えてしまう数量はエラー
+        $maxQuantity = floor(($this->app['config']['max_total_fee'] - $tmp_subtotal) / $ProductClass->getPrice02IncTax());
+        if ($quantity > $maxQuantity) {
+            $this->setError('cart.over.price_limit');
+            $tmp_quantity += $maxQuantity;
+        } else {
+            $tmp_quantity += $quantity;
         }
+
         if ($tmp_quantity == 0) {
             // 数量が0の場合、エラー
             throw new CartException('cart.over.price_limit');
