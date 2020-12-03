@@ -213,12 +213,12 @@ function composerSetup()
         $sha = hash_file('SHA384', COMPOSER_SETUP_FILE).PHP_EOL;
         out(COMPOSER_SETUP_FILE.': '.$sha);
 
-        $command = 'php '.COMPOSER_SETUP_FILE;
+        $command = 'php '.COMPOSER_SETUP_FILE.' --version=1.10.17';
         out("execute: $command", 'info');
         passthru($command);
         unlink(COMPOSER_SETUP_FILE);
     } else {
-        $command = 'php '.COMPOSER_FILE.' self-update';
+        $command = 'php '.COMPOSER_FILE.' self-update --1';
         passthru($command);
     }
 }
