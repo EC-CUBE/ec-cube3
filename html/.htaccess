@@ -1,5 +1,15 @@
 order deny,allow
 allow from all
+
+<IfModule mod_headers.c>
+    # クリックジャッキング対策
+    Header always set X-Frame-Options SAMEORIGIN
+
+    # XSS対策
+    Header set X-XSS-Protection "1; mode=block"
+    Header set X-Content-Type-Options nosniff
+</IfModule>
+
 <IfModule mod_rewrite.c>
     #403 Forbidden対応方法
     #ページアクセスできない時シンボリックリンクが有効になっていない可能性あります、
