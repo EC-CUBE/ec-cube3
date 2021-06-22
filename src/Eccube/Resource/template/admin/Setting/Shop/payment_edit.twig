@@ -69,7 +69,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
     if ($("#{{ form.payment_image.vars.id }}").val() != "") {
         var filename = $("#{{ form.payment_image.vars.id }}").val();
         var path = '{{ app.config.image_save_urlpath }}/' + filename;
-        var $img = $(proto_img.replace(/__path__/g, path));
+        var $img = $(proto_img);
+        $('img', $img).attr('src', path);
         $("#{{ form.payment_image.vars.id }}").val(filename);
 
         $('#thumb').append($img);
@@ -83,7 +84,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
         done: function (e, data) {
             $('#progress').hide();
             var path = '{{ app.config.image_temp_urlpath }}/' + data.result.filename;
-            var $img = $(proto_img.replace(/__path__/g, path));
+            var $img = $(proto_img);
+            $('img', $img).attr('src', path);
             $("#{{ form.payment_image.vars.id }}").val(data.result.filename);
 
             $('#thumb').append($img);
