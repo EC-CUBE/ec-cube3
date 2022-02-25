@@ -104,4 +104,10 @@ $app->register(new \Eccube\ServiceProvider\DebugServiceProvider());
 
 $app->register(new \Saxulum\SaxulumWebProfiler\Provider\SaxulumWebProfilerProvider());
 
+// 以下のリンクを参考に、TRUSTED_HOSTSを設定してください
+//
+// @see https://www.ec-cube.net/info/weakness/20220221/#diff
+//
+// \Symfony\Component\HttpFoundation\Request::setTrustedHosts(array('^www\.example\.com$'));
+
 $app->run();

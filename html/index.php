@@ -51,6 +51,13 @@ $app = \Eccube\Application::getInstance(array('output_config_php' => false));
 if (isset($app['config']['eccube_install']) && $app['config']['eccube_install']) {
     $app->initialize();
     $app->initializePlugin();
+
+    // 以下のリンクを参考に、TRUSTED_HOSTSを設定してください
+    //
+    // @see https://www.ec-cube.net/info/weakness/20220221/#diff
+    //
+    // \Symfony\Component\HttpFoundation\Request::setTrustedHosts(array('^www\.example\.com$'));
+
     if ($app['config']['http_cache']['enabled']) {
         $app['http_cache']->run();
     } else {
