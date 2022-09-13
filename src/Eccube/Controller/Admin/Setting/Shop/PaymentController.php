@@ -93,7 +93,7 @@ class PaymentController extends AbstractController
                 // ファイルアップロード
                 $file = $form['payment_image']->getData();
                 $fs = new Filesystem();
-                if ($file && $fs->exists($app['config']['image_temp_realdir'] . '/' . $file)) {
+                if ($file && strpos($file, '..') === false && $fs->exists($app['config']['image_temp_realdir'] . '/' . $file)) {
                     $fs->rename(
                         $app['config']['image_temp_realdir'] . '/' . $file,
                         $app['config']['image_save_realdir'] . '/' . $file

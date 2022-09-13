@@ -180,6 +180,11 @@ class ProductType extends AbstractType
     private function validateFilePath($form, $dirs)
     {
         foreach ($form->getData() as $fileName) {
+            if (strpos($fileName, '..') !== false) {
+                $formRoot = $form->getRoot();
+                $formRoot['product_image']->addError(new FormError('画像のパスが不正です。'));
+                break;
+            }
             $fileInDir = array_filter($dirs, function ($dir) use ($fileName) {
                 $filePath = realpath($dir.'/'.$fileName);
                 $topDirPath = realpath($dir);
