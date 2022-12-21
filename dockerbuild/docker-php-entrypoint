@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+if [ ! -d /var/www/html/vendor/bin ]; then
+    composer install \
+        --no-scripts \
+        --no-autoloader \
+        --no-plugins \
+        -d ${APACHE_DOCUMENT_ROOT}
+    composer dumpautoload -o --apcu
+    chown -R www-data: vendor
+fi
+
+# first arg is `-f` or `--some-option`
+if [ "${1#-}" != "$1" ]; then
+	set -- apache2-foreground "$@"
+fi
+
+exec "$@"
