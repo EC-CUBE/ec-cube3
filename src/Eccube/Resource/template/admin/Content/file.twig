@@ -102,7 +102,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                                 </thead>
                                 <tbody>
                 {% if tpl_is_top_dir == false %}
-                    <tr id="parent_dir" onclick="eccube.setValue('select_file', '{{ tpl_parent_dir }}', 'form1'); eccube.fileManager.selectFile('parent_dir', '#808080');" onDblClick="eccube.fileManager.setTreeStatus('tree_status');eccube.fileManager.doubleClick(arrTree, '{{ tpl_parent_dir }}', true, '{{ tpl_now_dir }}', true)" style="">
+                    <tr id="parent_dir">
                         <td id="result_list__name"><svg class="cb cb-ellipsis-h"><use xlink:href="#cb-ellipsis-h" /></svg></td>
                         <td id="result_list__size">&nbsp;</td>
                         <td id="result_list__time">&nbsp;</td>
@@ -113,7 +113,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
                 {% endif %}
                 {% for file in arrFileList %}
                     <tr id="{{ loop.index }}" style="">
-                        <td id="result_list__name--{{ loop.index }}" class="file-name" onDblClick="eccube.fileManager.setTreeStatus('tree_status');eccube.fileManager.doubleClick(arrTree, '{{ file.file_path }}', {% if file.is_dir %}true{% else %}false{% endif %} '{{ tpl_now_dir }}', false)">
+                        <td id="result_list__name--{{ loop.index }}" class="file-name">
                             {% if file.is_dir %}
                                 <svg class="cb cb-folder"><use xlink:href="#cb-folder" /></svg>
                             {% else %}
