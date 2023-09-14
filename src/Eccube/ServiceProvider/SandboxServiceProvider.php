@@ -37,10 +37,4 @@ class SandboxServiceProvider implements ServiceProviderInterface
             return $twig;
         }));
     }
-
-    public function boot(Application $app)
-    {
-        $app['dispatcher']->addSubscriber($app['listener.requestdump']);
-        $app['dispatcher']->addSubscriber($app['eccube.monolog.listener']);
-    }
 }
