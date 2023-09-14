@@ -285,6 +285,7 @@ class Application extends ApplicationTrait
         $this->register(new \Silex\Provider\TwigServiceProvider(), array(
             'twig.form.templates' => array('Form/form_layout.twig'),
         ));
+        $this->register(new \Eccube\ServiceProvider\SandboxServiceProvider());
         $this['twig'] = $this->share($this->extend('twig', function (\Twig_Environment $twig, \Silex\Application $app) {
             $twig->addExtension(new \Eccube\Twig\Extension\EccubeExtension($app));
             $twig->addExtension(new \Twig_Extension_StringLoader());
