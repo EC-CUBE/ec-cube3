@@ -37,4 +37,9 @@ class SandboxServiceProvider implements ServiceProviderInterface
             return $twig;
         }));
     }
+
+    public function boot(Application $app)
+    {
+        // TODO: Implement boot() method.
+    }
 }
