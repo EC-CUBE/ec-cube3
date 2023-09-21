@@ -17,14 +17,28 @@ use Eccube\Tests\Web\AbstractWebTestCase;
 
 class IgnoreTwigSandboxErrorExtensionTest extends AbstractWebTestCase
 {
+    protected $app;
+
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->app = \Eccube\Application::getInstance();
+        $this->app['debug'] = false;
+    }
+
+
+    public function tearDown()
+    {
+        $this->app['debug'] = true;
+        parent::tearDown();
+    }
+
     /**
      * @dataProvider twigSnippetsProvider
      */
     public function testFreeArea($snippet, $whitelisted)
     {
-        $app = \Eccube\Application::getInstance(array('output_config_php' => false));
-        $app['debug'] = false;
-
         $Product = $this->createProduct();
         $Product->setFreeArea('__RENDERED__'.$snippet);
         $this->app['orm.em']->flush();
