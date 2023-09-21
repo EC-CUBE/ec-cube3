@@ -24,3 +24,6 @@ jobs:
       run: |
         composer self-update --1
         composer install
+    - name: Setup EC-CUBE
+      run: |
+        php eccube_install.php sqlite
