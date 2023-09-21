@@ -22,18 +22,22 @@ class IgnoreTwigSandboxErrorExtensionTest extends AbstractWebTestCase
      */
     public function testFreeArea($snippet, $whitelisted)
     {
+        $app = \Eccube\Application::getInstance(array('output_config_php' => false));
+        $app['debug'] = false;
+
         $Product = $this->createProduct();
         $Product->setFreeArea('__RENDERED__'.$snippet);
         $this->app['orm.em']->flush();
         
-        if($whitelisted === false) {
-            self::markTestSkipped('false');
-        }
-        $crawler = $this->client->request('GET', $this->app['url_generator']->generate('product_detail', ['id' => $Product->getId()]));
+        $crawler = $this->client->request('GET', $this->app['url_generator']->generate('product_detail', array('id' => $Product->getId())));
         $text = $crawler->text();
 
         // $snippetがsandboxで制限された場合はフリーエリアは空で出力されるため、__RENDERED__の出力有無で結果を確認する
-        self::assertContains($whitelisted ? '__RENDERED__' : '', $text);
+        if ($whitelisted) {
+            self::assertContains('__RENDERED__', $text);
+        } else {
+            self::assertNotContains('__RENDERED__', $text);
+        }
     }
 
     public function twigSnippetsProvider()
