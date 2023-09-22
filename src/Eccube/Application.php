@@ -105,7 +105,8 @@ class Application extends ApplicationTrait
                 ->parseConfig('nav', $configAll, true)
                 ->parseConfig('doctrine_cache', $configAll)
                 ->parseConfig('http_cache', $configAll)
-                ->parseConfig('session_handler', $configAll);
+                ->parseConfig('session_handler', $configAll)
+                ->parseConfig('twig_sandbox', $configAll);
 
             return $configAll;
         });
