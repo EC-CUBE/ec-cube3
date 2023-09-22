@@ -58,6 +58,7 @@ class IgnoreTwigSandboxErrorExtensionTest extends AbstractWebTestCase
     {
         // 0: twigスニペット, 1: ホワイトリスト対象かどうか
         return array(
+            // タグ・フィルター・関数
             array('{% set foo = "bar" %}', true),
             array('{% with %} test {% endwith %}', true),
             array('{% if true %} <p>test</p> {% endif %}', true),
@@ -75,6 +76,10 @@ class IgnoreTwigSandboxErrorExtensionTest extends AbstractWebTestCase
             array('{{ source("index.twig") }}', false),
             array('{{ form_start(form) }} <div>test </div> {{ form_end(form) }}', false),
             array('{{ include(template_from_string("Hello")) }}', false),
+            // 変数
+            array('{{ app.session }}', false),
+            array('{{ app.security }}', false),
+            array('{{ app.request.cookies }}', false),
         );
     }
 }
