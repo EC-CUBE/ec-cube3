@@ -77,7 +77,7 @@ class IgnoreTwigSandboxErrorExtensionTest extends AbstractWebTestCase
             array('{{ form_start(form) }} <div>test </div> {{ form_end(form) }}', false),
             array('{{ include(template_from_string("Hello")) }}', false),
             // 変数
-            array('{{ Product }}', true),
+            array('{{ Product.name }}', true),
             array('{{ app.session }}', false),
             array('{{ app.security }}', false),
             array('{{ app.request.cookies }}', false),
