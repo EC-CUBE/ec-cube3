@@ -22,11 +22,13 @@ class SandboxServiceProvider implements ServiceProviderInterface
         $app['twig'] = $app->share($app->extend('twig', function ($twig, $app) {
 
             // ホワイトリストの設定
-            $tags = array('block','extends','for','if','set','spaceless','verbatim','with','form_theme','stopwatch','trans','trans_default_domain');
-            $filters = array('abs','batch','capitalize','date','escape','default','doctrine_format_sql','doctrine_prettify_sql','doctrine_pretty_query','doctrine_replace_query_parameters','first','format','abbr_class','abbr_method','file_link','file_relative','format_args','format_args_as_text','humanize','json_encode','keys','last','length','lower','merge','replace','round','split','striptags','title','trim','no_image_product','date_format','price','ellipsis','time_ago');
-            $methods = array();
-            $properties = array();
-            $functions = array('cycle','max','min','random','range','template_from_string','absolute_url','asset','asset_version','csrf_token','form_parent','fragment_uri','impersonation_exit_path','impersonation_exit_url','is_granted','logout_path','logout_url','relative_path','t','calc_inc_tax','active_menus','csrf_token_for_anchor','url','path','is_object','get_product');
+            $twig_sandbox_list = $app['config']['twig_sandbox'];
+
+            $tags = $twig_sandbox_list['allowed_tags'];
+            $filters = $twig_sandbox_list['allowed_filters'];
+            $methods = $twig_sandbox_list['allowed_methods'];
+            $properties =  $twig_sandbox_list['allowed_properties'];
+            $functions = $twig_sandbox_list['allowed_functions'];
 
             $policy = new \Twig\Sandbox\SecurityPolicy($tags, $filters, $methods, $properties, $functions);
             $sandbox = new \Twig\Extension\SandboxExtension($policy);
