@@ -43,7 +43,13 @@ jobs:
         composer install
     - name: Setup EC-CUBE
       run: |
-        php eccube_install.php sqlite none #26行目でcomposerインストールしているためスキップ
+        php eccube_install.php $DB none #26行目でcomposerインストールしているためスキップ
+      env:
+          DB: mysql
+          USER: root
+          DBNAME: myapp_test
+          DBPASS: password
+          DBUSER: root
     - name: Php Unit Test
       run: |
         vendor/bin/phpunit
