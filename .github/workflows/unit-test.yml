@@ -45,11 +45,11 @@ jobs:
       run: |
         php eccube_install.php $DB none #26行目でcomposerインストールしているためスキップ
       env:
-          DB: mysql
-          USER: root
+          DB: pgsql
+          USER: postgres
           DBNAME: myapp_test
           DBPASS: password
-          DBUSER: root
+          DBUSER: postgres
     - name: Php Unit Test
       run: |
         vendor/bin/phpunit
