@@ -49,7 +49,7 @@ jobs:
           USER: root
           DBNAME: myapp_test
           DBPASS: password
-          DBUSER: postgres
+          DBUSER: root
           #DB: pgsql
           #USER: postgres
           #DBNAME: myapp_test
