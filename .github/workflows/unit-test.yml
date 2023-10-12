@@ -16,6 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        php: [ '5.3', '5.4', '7.0', '7.1' ]
         db: [ mysql, pgsql ]
         include:
           - db: mysql
@@ -45,7 +46,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: 7.0
+        php-version: ${{ matrix.php }}
     - name: Setup Composer
       run: |
         composer self-update --1
