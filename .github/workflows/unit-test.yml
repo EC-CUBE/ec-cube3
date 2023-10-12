@@ -46,6 +46,7 @@ jobs:
         php eccube_install.php $DB none #26行目でcomposerインストールしているためスキップ
       env:
           DB: mysql
+          DBSERVER: 127.0.0.1
           USER: root
           DBNAME: myapp_test
           DBPASS: password
