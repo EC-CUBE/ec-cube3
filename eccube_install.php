@@ -255,7 +255,6 @@ function createDatabase(array $connectionParams)
 
     $config = new \Doctrine\DBAL\Configuration();
     $conn = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
-    var_dump($connectionParams);
     $sm = $conn->getSchemaManager();
     out('Created database connection...', 'info');
 
