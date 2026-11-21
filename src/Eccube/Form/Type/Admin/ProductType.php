@@ -177,7 +177,7 @@ class ProductType extends AbstractType
      * @param $form FormInterface
      * @param $dirs array
      */
-    private function validateFilePath($form, $dirs)
+    public function validateFilePath($form, $dirs)
     {
         foreach ($form->getData() as $fileName) {
             if (strpos($fileName, '..') !== false) {
